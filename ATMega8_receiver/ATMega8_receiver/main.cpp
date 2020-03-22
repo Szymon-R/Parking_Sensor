@@ -10,18 +10,18 @@
 //header to enable data flow control over pins
 
 static UARTObject uart2;
-static TimerObject timer1;
-StateMachine StateMachine::machine;
+static TimerObject timer2;
+StateMachine StateMachine::machine(uart2, timer2);
 
 
 
 int main(void)
 {
-	TimerObject timer1;
 	uart2.Init();
-	timer1.Init();
-	uart2.Transmit("Start\n");
+	timer2.Init();
+	//uart2.Transmit("Start\n");
 	sei();
+	StateMachine::GetInstance().Run();
 	while (1)
 	{
 		Buffer b1;

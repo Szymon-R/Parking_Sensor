@@ -8,7 +8,8 @@
 
 #include "StateMachine.h"
 
-StateMachine::StateMachine()
+StateMachine::StateMachine(UARTObject& uart, TimerObject& timer) :
+	uart(uart), timer1(timer)
 {
 	this->currentState = State::IDLE;
 	this->nextState = State::IDLE;
@@ -39,10 +40,10 @@ void StateMachine::Run()
 				uart.Transmit("State: PROBING\n");
 				if(uart.messagePresent)
 				{
-					uart.Transmit("Message arrived\n");
+					uart.Transmit("Probing message\n");
 					uint16_t data = uart.GetValueFromMessage();
 					this->SetNextState(State::ACTIVE);
-					//timer1.OverflowCallback = &TransitToDisabling;
+					timer1.OverflowCallback = &TransitToDisabling;
 					timer1.Run(3000);
 				}
 				else
@@ -52,13 +53,20 @@ void StateMachine::Run()
 				}
 			break;
 			
-				case State::ACTIVE:	
-				uart.Transmit("State: PROBING\n");
-				if(uart.messagePresent)
-				{
-					uart.Transmit("Message arrived\n");
-					uint16_t data = uart.GetValueFromMessage();
-				}
+			case State::ACTIVE:	
+			//uart.Transmit("State: ACTIVE\n");
+			if(uart.messagePresent)
+			{
+				uart.Transmit("ResetTimer\n");
+				uint16_t data = uart.GetValueFromMessage();
+				timer1.Reset();
+			}
+			break;
+			
+			case State::DISABLING:
+			uart.Transmit("State: DISABLING\n");
+			timer1.Stop();
+			this->SetNextState(State::IDLE);
 			break;
 		}
 	}	
@@ -69,7 +77,7 @@ void StateMachine::Update()
 	this->currentState = this->nextState;
 }
 
-void TransitToDisabling(StateMachine& machine)
+void TransitToDisabling()
 {
-	machine.SetNextState(State::DISABLING);
+	StateMachine::GetInstance().SetNextState(State::DISABLING);
 }

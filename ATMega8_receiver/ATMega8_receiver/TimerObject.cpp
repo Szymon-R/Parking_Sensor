@@ -7,16 +7,19 @@
 
 
 #include "TimerObject.h"
+//#include "StateMachine.h"
 
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
+void (*TimerObject::OverflowCallback)();
+
 void TimerObject::Init()
 {
 	//CTC mode
 	TCCR1B|=(1<<WGM12);
-	this->Run(3000);
+//	this->Run(3000);
 }
 
 void TimerObject::Run()
@@ -38,6 +41,7 @@ void TimerObject::Stop()
 {
 	//prescaler 1024
 	TCCR1B = 0;
+	this->Reset();
 }
 
 void TimerObject::Timeout(uint16_t interval)
@@ -45,7 +49,12 @@ void TimerObject::Timeout(uint16_t interval)
 	OCR1A = interval;
 }
 
+void TimerObject::Reset()
+{
+	TCNT1 = 0;
+}
+
 ISR(TIMER1_COMPA_vect)
 {
-	//TimerObject::OverflowCallback();
+	TimerObject::OverflowCallback();
 }

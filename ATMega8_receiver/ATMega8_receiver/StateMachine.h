@@ -26,7 +26,7 @@ enum class State
 class StateMachine
 {
 public:
-	StateMachine();
+	StateMachine(UARTObject& uart, TimerObject& timer);
 	void SetNextState(State nextState);
 	void Run();
 	void Update();
@@ -40,6 +40,6 @@ private:
 	State nextState;
 };
 
-void TransitToDisabling(StateMachine& machine);
+void TransitToDisabling();
 
 #endif //__STATEMACHINE_H__
