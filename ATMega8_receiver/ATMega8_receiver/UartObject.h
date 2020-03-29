@@ -19,13 +19,12 @@ class UARTObject
 	public:
 		struct Params
 		{
-			static constexpr int BAUD = 9600;
+			static constexpr int BAUD = 2400;
 			static constexpr int DATA_LENGTH = 4;
 		};
 		void Init();
 		template<typename T>
 		void Transmit(T* dataPtr, uint8_t size = UCHAR_MAX);
-		void ReceiverRun();
 		uint16_t GetValueFromMessage();
 		static Buffer GetMessage();
 		static bool messagePresent;

@@ -164,6 +164,18 @@
     <Compile Include="globals.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="I2CDriver.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="I2CDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="I2CObject.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="I2CObject.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>

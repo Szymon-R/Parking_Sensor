@@ -35,11 +35,7 @@ void UARTObject::Init()
 
 }
 
-void UARTObject::ReceiverRun()
-{
-	//UCSRB = ((1<<RXEN) | (1<<TXEN) | (1<<RXCIE));
 
-}
 Buffer UARTObject::GetMessage()
 {
 	UARTObject::messagePresent = false;
