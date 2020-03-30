@@ -43,7 +43,7 @@ void StateMachine::Run()
 					uart.Transmit("Probing message\n");
 					uint16_t data = uart.GetValueFromMessage();
 					this->SetNextState(State::ACTIVE);
-					timer1.OverflowCallback = &TransitToDisabling;
+					timer1.OverflowCallback = [](){StateMachine::GetInstance().SetNextState(State::DISABLING);};
 					timer1.Run(3000);
 				}
 				else
@@ -75,9 +75,4 @@ void StateMachine::Run()
 void StateMachine::Update()
 {
 	this->currentState = this->nextState;
-}
-
-void TransitToDisabling()
-{
-	StateMachine::GetInstance().SetNextState(State::DISABLING);
 }
