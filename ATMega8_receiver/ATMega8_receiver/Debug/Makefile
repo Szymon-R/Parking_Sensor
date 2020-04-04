@@ -38,6 +38,8 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../Buffer.cpp \
+../I2CDriver.cpp \
+../I2CObject.cpp \
 ../main.cpp \
 ../StateMachine.cpp \
 ../TimerObject.cpp \
@@ -52,6 +54,8 @@ ASM_SRCS +=
 
 OBJS +=  \
 Buffer.o \
+I2CDriver.o \
+I2CObject.o \
 main.o \
 StateMachine.o \
 TimerObject.o \
@@ -59,6 +63,8 @@ UartObject.o
 
 OBJS_AS_ARGS +=  \
 Buffer.o \
+I2CDriver.o \
+I2CObject.o \
 main.o \
 StateMachine.o \
 TimerObject.o \
@@ -66,6 +72,8 @@ UartObject.o
 
 C_DEPS +=  \
 Buffer.d \
+I2CDriver.d \
+I2CObject.d \
 main.d \
 StateMachine.d \
 TimerObject.d \
@@ -73,6 +81,8 @@ UartObject.d
 
 C_DEPS_AS_ARGS +=  \
 Buffer.d \
+I2CDriver.d \
+I2CObject.d \
 main.d \
 StateMachine.d \
 TimerObject.d \
@@ -93,6 +103,20 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 ./Buffer.o: .././Buffer.cpp
+	@echo Building file: $<
+	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-g++.exe$(QUOTE) -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega8a" -c -std=c++14 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./I2CDriver.o: .././I2CDriver.cpp
+	@echo Building file: $<
+	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-g++.exe$(QUOTE) -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega8a" -c -std=c++14 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./I2CObject.o: .././I2CObject.cpp
 	@echo Building file: $<
 	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-g++.exe$(QUOTE) -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega8a" -c -std=c++14 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

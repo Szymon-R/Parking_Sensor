@@ -9,12 +9,10 @@
 #ifndef __I2COBJECT_H__
 #define __I2COBJECT_H__
 
-
 class I2CObject
 {
-
-//functions
 public:
+	
 
 }; //I2CObject
 

@@ -4,6 +4,10 @@
 
 Buffer.cpp
 
+I2CDriver.cpp
+
+I2CObject.cpp
+
 main.cpp
 
 StateMachine.cpp
