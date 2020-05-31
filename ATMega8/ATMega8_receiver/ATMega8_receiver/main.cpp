@@ -52,7 +52,7 @@ int main(void)
 			uart2.Transmit("Present\n");
 		}*/
 		++number;
-		i2c.Transmit(adress, &number, sizeof(number));
+		//i2c.Transmit(adress, &number, sizeof(number));
 		_delay_ms(10);
 		//uart2.Transmit("Alive\n");
 	}

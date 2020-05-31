@@ -8,7 +8,7 @@
 
 #include "UartObject.h"
 #include "globals.h"
-
+#include <string.h>
 #include <avr/interrupt.h>
 
 static Buffer receiveBuffer;
@@ -48,6 +48,22 @@ uint16_t UARTObject::GetValueFromMessage()
 	out = static_cast<uint16_t>(this->GetMessage()[1]) << 8;
 	out |= static_cast<uint16_t>(this->GetMessage()[2]);
 	return out;
+}
+
+
+void UARTObject::Transmit(const char* dataPtr) const
+{
+	const uint8_t* iter = reinterpret_cast<const uint8_t*>(dataPtr);
+	const uint8_t* ending = iter + strlen(dataPtr);
+	while(iter<ending)
+	{
+		while (! (UCSRA & (1 << UDRE)) );
+		{
+			//once transmitter is ready sent eight bit data
+			UDR = *iter;
+			++iter;
+		}
+	}
 }
 
 ISR(USART_RXC_vect)

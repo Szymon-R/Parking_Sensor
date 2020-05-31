@@ -24,17 +24,21 @@ class UARTObject
 		};
 		void Init();
 		template<typename T>
-		void Transmit(T* dataPtr, uint8_t size = UCHAR_MAX);
+			void Transmit(T* dataPtr, uint8_t size) const;
+		template<typename T>
+			void Transmit(T data) const;			
+		void Transmit(const char* dataPtr) const;	
 		uint16_t GetValueFromMessage();
 		static Buffer GetMessage();
 		static bool messagePresent;
 	private:
-		Buffer message;
-			
+		Buffer message;		
 };
 
+
+
 template<typename T>
-void UARTObject::Transmit(T* dataPtr, uint8_t size)
+void UARTObject::Transmit(T* dataPtr, uint8_t size) const
 {
 	const uint8_t* iter = reinterpret_cast<const uint8_t*>(dataPtr);
 	const uint8_t* ending = iter + size*sizeof(uint8_t);
@@ -48,4 +52,11 @@ void UARTObject::Transmit(T* dataPtr, uint8_t size)
 		}
 	}
 }
+
+template<typename T>
+void UARTObject::Transmit(T data) const
+{
+	this->Transmit(&data, sizeof(data));
+}
+
 #endif //__UARTOBJECT_H__
